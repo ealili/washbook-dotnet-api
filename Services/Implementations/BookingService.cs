@@ -19,6 +19,15 @@ public class BookingService(IBookingRepository bookingRepository) : IBookingServ
     public async Task AddAsync(Booking entity)
     {
         await bookingRepository.AddAsync(entity);
-        
+    }
+
+    public Task DeleteAsync(Booking entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Booking> GetByIdAsync(int id)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using Microsoft.AspNetCore.Authorization;
 using washbook_backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using washbook_backend.Services.Interfaces;
@@ -48,7 +46,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetAll(string id)
+    public async Task<IActionResult> GetById(string id)
     {
         var user = await _userService.GetByIdAsync(id);
         var roles = await _userService.GetAllUserRolesAsync(user);
@@ -64,7 +62,6 @@ public class UsersController : ControllerBase
         };
 
         var response = new ApiResponse<UserDto>(true, "Data retrieved successfully", userDto);
-
 
         return Ok(response);
     }

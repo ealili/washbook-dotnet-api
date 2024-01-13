@@ -56,7 +56,9 @@ public class UserInvitationsController : ControllerBase
         }
         catch (Exception e)
         {
-            return BadRequest($"Failed to create invitation: {e.Message}");
+            var errorResponse = new ApiResponse<string>(false, "Failed to invite user!", null);
+
+            return BadRequest(errorResponse);
         }
     }
 }

@@ -31,6 +31,11 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
+    public Task DeleteAsync(User entity)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<IEnumerable<string>> GetAllUserRolesAsync(User user)
     {
         return await _userManager.GetRolesAsync(user);

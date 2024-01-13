@@ -20,6 +20,10 @@ public class UserRepository : IUserRepository
         _mapper = mapper;
     }
 
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
     public async Task<IEnumerable<User>> GetAllAsync()
     {
         var users = await _context.Users
@@ -47,6 +51,11 @@ public class UserRepository : IUserRepository
     }
 
     public Task AddAsync(User entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Delete(User entity)
     {
         throw new NotImplementedException();
     }

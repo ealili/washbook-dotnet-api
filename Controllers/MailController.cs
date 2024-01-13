@@ -8,7 +8,7 @@ namespace washbook_backend.Controllers;
 public class MailController : ControllerBase
 {
     private readonly IMailService _mailService;
-    //injecting the IMailService into the constructor
+    
     public MailController(IMailService mailService)
     {
         _mailService = mailService;

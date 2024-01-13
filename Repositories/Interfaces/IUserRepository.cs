@@ -5,4 +5,5 @@ namespace washbook_backend.Repositories.Interfaces;
 
 public interface IUserRepository : IRepository<User>
 {
+    public Task<User> GetByIdAsync(string id);
 }

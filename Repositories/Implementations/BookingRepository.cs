@@ -14,6 +14,11 @@ public class BookingRepository : IBookingRepository
         _context = context;
     }
 
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<IEnumerable<Booking>> GetAllAsync()
     {
         var bookings = await _context.Bookings
@@ -39,7 +44,7 @@ public class BookingRepository : IBookingRepository
         return result;
     }
 
-    public Task<Booking> GetByIdAsync(string id)
+    public Task<Booking> GetByIdAsync(int id)
     {
         throw new NotImplementedException();
     }
@@ -47,6 +52,11 @@ public class BookingRepository : IBookingRepository
     public async Task AddAsync(Booking entity)
     {
         await _context.Bookings.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        // await _context.SaveChangesAsync();
+    }
+
+    public Task Delete(Booking entity)
+    {
+        throw new NotImplementedException();
     }
 }

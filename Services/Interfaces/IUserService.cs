@@ -6,4 +6,6 @@ namespace washbook_backend.Services.Interfaces;
 public interface IUserService : IService<User>
 {
     public Task<IEnumerable<string>> GetAllUserRolesAsync(User user);
+    
+    Task<User> GetByIdAsync(string id);
 }

@@ -13,6 +13,7 @@ namespace washbook_backend.Data
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<UserInvitation> UserInvitations { get; set; }
+        public DbSet<Machine> Machines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
