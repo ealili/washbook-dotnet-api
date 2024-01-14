@@ -1,13 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using washbook_backend.Data;
 using washbook_backend.Models;
 using washbook_backend.Repositories.Interfaces;
 
 namespace washbook_backend.Repositories.Implementations;
 
-public class UserInvitationRepository: IUserInvitationRepository
+public class UserInvitationRepository : IUserInvitationRepository
 {
-    public Task SaveChangesAsync()
+    private readonly AppDbContext _context;
+
+    public UserInvitationRepository(AppDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 
     public Task<IEnumerable<UserInvitation>> GetAllAsync()
@@ -15,9 +24,9 @@ public class UserInvitationRepository: IUserInvitationRepository
         throw new NotImplementedException();
     }
 
-    public Task AddAsync(UserInvitation entity)
+    public async Task AddAsync(UserInvitation entity)
     {
-        throw new NotImplementedException();
+        await _context.UserInvitations.AddAsync(entity);
     }
 
     public Task Delete(UserInvitation entity)
@@ -28,5 +37,10 @@ public class UserInvitationRepository: IUserInvitationRepository
     public Task<UserInvitation> GetByIdAsync(int id)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<UserInvitation> GetByEmailAsync(string email)
+    {
+        return  await _context.UserInvitations.FirstOrDefaultAsync(ui => ui.Email == email);
     }
 }

@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using washbook_backend.Data;
 using washbook_backend.DTOs;
 using washbook_backend.Models;
+using washbook_backend.Services.Interfaces;
 using washbook_backend.Utilities.Helpers;
 
 namespace washbook_backend.Controllers;
@@ -12,36 +11,16 @@ namespace washbook_backend.Controllers;
 [Route("api/[controller]")]
 public class UserInvitationsController : ControllerBase
 {
-    private readonly AppDbContext _context;
-    private readonly UserManager<User> _userManager;
+    private readonly IUserInvitationService _userInvitationService;
 
-    public UserInvitationsController(AppDbContext context, UserManager<User> userManager)
+    public UserInvitationsController(IUserInvitationService userInvitationService, UserManager<User> userManager)
     {
-        _context = context;
-        _userManager = userManager;
+        _userInvitationService = userInvitationService;
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] UserInvitationDto userInvitationDto)
     {
-        var user = await _userManager.FindByEmailAsync(userInvitationDto.Email);
-
-        if (user != null)
-        {
-            var errorResponse = new ApiResponse<string>(false, "User already exists", null);
-            return BadRequest(errorResponse);
-        }
-
-        var userInvitation =
-            await _context.UserInvitations.FirstOrDefaultAsync(ui => ui.Email == userInvitationDto.Email);
-
-        if (userInvitation != null)
-        {
-            var errorResponse = new ApiResponse<string>(false, "User is already invited!", null);
-
-            return BadRequest(errorResponse);
-        }
-
         try
         {
             var invitation = new UserInvitation
@@ -50,13 +29,15 @@ public class UserInvitationsController : ControllerBase
                 InvitationToken = Guid.NewGuid().ToString()
             };
 
-            await _context.UserInvitations.AddAsync(invitation);
-            await _context.SaveChangesAsync();
-            return Ok();
+            await _userInvitationService.AddAsync(invitation);
+            
+            var response = new ApiResponse<UserInvitation>(true, "Data created successfully", invitation);
+
+            return Ok(response);
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            var errorResponse = new ApiResponse<string>(false, "Failed to invite user!", null);
+            var errorResponse = new ApiResponse<string>(false,  exception.Message, null);
 
             return BadRequest(errorResponse);
         }
