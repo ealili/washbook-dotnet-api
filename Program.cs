@@ -77,10 +77,13 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IJWTManagerService, JWTManagerService>();
 builder.Services.AddTransient<IMachineService, MachineService>();
+builder.Services.AddTransient<IUserInvitationService, UserInvitationService>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddTransient<IMailService, MailService>();
 builder.Services.AddTransient<IMachineRepository, MachineRepository>();
+builder.Services.AddTransient<IUserInvitationRepository, UserInvitationRepository>();
 
 
 
