@@ -1,9 +1,5 @@
-using System.Net.Mail;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using MailKit.Net.Smtp;
-using System;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace washbook_backend.Utilities.Mail;
@@ -44,9 +40,7 @@ public class MailService : IMailService
                     ";
 
                 emailMessage.Body = emailBodyBuilder.ToMessageBody();
-
-
-                //this is the SmtpClient from the Mailkit.Net.Smtp namespace, not the System.Net.Mail one
+                
                 using (SmtpClient mailClient = new SmtpClient())
                 {
                     mailClient.Connect(_mailSettings.Server, _mailSettings.Port,
@@ -61,6 +55,7 @@ public class MailService : IMailService
         }
         catch (Exception ex)
         {
+            Console.WriteLine($"Mail error {ex.Message}");
             // Exception Details
             return false;
         }

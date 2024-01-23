@@ -55,27 +55,19 @@ public class BookingsController : ControllerBase
     [Authorize]
     public async Task<IActionResult> CreateBooking([FromBody] BookingDto bookingDto)
     {
-        try
-        {
-            var currentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            _logger.LogInformation($"--INFO--: User {currentUserId} is creating a booking.");
+        var currentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        _logger.LogInformation($"--INFO--: User {currentUserId} is creating a booking.");
 
-            var booking = new Booking
-            {
-                DateTime = bookingDto.DateTime,
-                RoomNumber = bookingDto.RoomNumber,
-                UserId = currentUserId
-            };
-            await _bookingService.AddAsync(booking);
-            var response = new ApiResponse<Booking>(true, "Data retrieved successfully", booking);
-
-            return Ok(response);
-        }
-        catch (Exception e)
+        var booking = new Booking
         {
-            _logger.LogInformation($"--INFO--: User Creating.... {e.Message}");
-            var errorResponse = new ApiResponse<string>(false, "An unexpected error occurred", null);
-            return BadRequest(errorResponse);
-        }
+            DateTime = bookingDto.DateTime,
+            RoomNumber = bookingDto.RoomNumber,
+            UserId = currentUserId
+        };
+        
+        await _bookingService.AddAsync(booking);
+        var response = new ApiResponse<Booking>(true, "Data retrieved successfully", booking);
+
+        return Ok(response);
     }
 }

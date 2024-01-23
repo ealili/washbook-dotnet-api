@@ -31,7 +31,6 @@ public class MachineRepository : IMachineRepository
 
         if (machine == null)
         {
-            // Throw the custom exception
             throw new MachineNotFoundException();
         }
 

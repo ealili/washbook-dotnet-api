@@ -13,7 +13,7 @@ public class UserInvitationsController : ControllerBase
 {
     private readonly IUserInvitationService _userInvitationService;
 
-    public UserInvitationsController(IUserInvitationService userInvitationService, UserManager<User> userManager)
+    public UserInvitationsController(IUserInvitationService userInvitationService)
     {
         _userInvitationService = userInvitationService;
     }
@@ -37,7 +37,7 @@ public class UserInvitationsController : ControllerBase
         }
         catch (Exception exception)
         {
-            var errorResponse = new ApiResponse<string>(false,  exception.Message, null);
+            var errorResponse = new ApiResponse<string>(false,  exception.Message);
 
             return BadRequest(errorResponse);
         }

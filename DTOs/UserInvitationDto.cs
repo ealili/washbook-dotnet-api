@@ -2,5 +2,5 @@ namespace washbook_backend.DTOs;
 
 public class UserInvitationDto
 {
-    public string Email { get; set; }
+    public required string Email { get; set; }
 }

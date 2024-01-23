@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using washbook_backend.DTOs;
-using washbook_backend.Exceptions.Machine;
 using washbook_backend.Models;
-using washbook_backend.Repositories.Interfaces;
 using washbook_backend.Services.Interfaces;
 using washbook_backend.Utilities.Helpers;
 
@@ -22,36 +20,21 @@ public class MachinesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Machine>>> GetAllMachines()
     {
-        try
-        {
-            var machines = await _machineService.GetAllAsync();
-            return Ok(machines);
-        }
-        catch (Exception exception)
-        {
-            return StatusCode(500, "Internal Server Error");
-        }
+        var machines = await _machineService.GetAllAsync();
+        return Ok(machines);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Machine>> GetMachineById(int id)
     {
-        try
-        {
-            var machine = await _machineService.GetByIdAsync(id);
-            return Ok(machine);
-        }
-        catch (MachineNotFoundException exception)
-        {
-            var errorResponse = new ApiResponse<string>(false, exception.Message, null);
-
-            return NotFound(errorResponse);
-        }
+        var machine = await _machineService.GetByIdAsync(id);
+        return Ok(machine);
     }
 
     [HttpPost]
     public async Task<ActionResult> AddMachine([FromBody] MachineDto machineDto)
     {
+        // TODO: Update, code clean up, remove try catch
         try
         {
             var machine = new Machine
@@ -76,18 +59,9 @@ public class MachinesController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        try
-        {
-            var machine = await _machineService.GetByIdAsync(id);
-            await _machineService.DeleteAsync(machine);
-            
-            return NoContent();
-        }
-        catch (MachineNotFoundException exception)
-        {
-            var errorResponse = new ApiResponse<string>(false, exception.Message, null);
+        var machine = await _machineService.GetByIdAsync(id);
+        await _machineService.DeleteAsync(machine);
 
-            return NotFound(errorResponse);
-        }
+        return NoContent();
     }
 }
