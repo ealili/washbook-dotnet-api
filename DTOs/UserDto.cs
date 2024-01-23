@@ -1,24 +1,18 @@
 namespace washbook_backend.DTOs;
 
-using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
-#nullable disable
 public class UserDto
 {
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
-    [Required]
-    public string FirstName { get; set; }
+    public required string FirstName { get; set; }
 
-    [Required]
-    public string LastName { get; set; }
+    public required string LastName { get; set; }
 
-    [Required]
-    public string Email { get; set; }
+    public required string Email { get; set; }
 
-    [Required]
-    public string UserName { get; set; }
+    public required string UserName { get; set; }
 
-    public List<string> Roles { get; set; }
+    public List<string>? Roles { get; set; }
 }
