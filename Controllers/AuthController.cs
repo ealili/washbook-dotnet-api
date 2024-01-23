@@ -18,8 +18,6 @@ public class AuthController : ControllerBase
 
     public AuthController(
         UserManager<User> userManager,
-        IConfiguration configuration,
-        TokenValidationParameters tokenValidationParameters,
         IJWTManagerService jwtManagerService
     )
     {
