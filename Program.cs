@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using washbook_backend.Data;
+using washbook_backend.Infrastructure;
 using washbook_backend.Models;
 using washbook_backend.Repositories.Implementations;
 using washbook_backend.Repositories.Interfaces;
@@ -86,6 +87,10 @@ builder.Services.AddTransient<IMachineRepository, MachineRepository>();
 builder.Services.AddTransient<IUserInvitationRepository, UserInvitationRepository>();
 
 
+builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
+builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
