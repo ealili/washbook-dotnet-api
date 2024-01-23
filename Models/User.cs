@@ -9,4 +9,6 @@ public class User : IdentityUser
     public required string LastName { get; set; }
     
     public ICollection<Booking>? Bookings { get; set; }
+    
+    public List<string>? Roles { get; set; }
 }

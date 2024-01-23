@@ -7,6 +7,13 @@ public class ApiResponse<T>
     public T? Data { get; set; }
 
 
+    public ApiResponse(bool success, string message)
+    {
+        Success = success;
+        Message = message;
+        Data = default(T);
+    }
+
     public ApiResponse(bool success, string message, T data)
     {
         Success = success;

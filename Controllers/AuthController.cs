@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using washbook_backend.Data;
 using washbook_backend.DTOs;
 using washbook_backend.Models;
 using washbook_backend.Services.Interfaces;
